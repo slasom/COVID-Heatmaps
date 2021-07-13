@@ -230,4 +230,9 @@
       expect:
         mean:
           under: 2000
+  
+  
+######### Log Tags ######### 
+  log_tags: 
+    - "CovidHeatmapInfo"
 
