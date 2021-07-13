@@ -1,22 +1,28 @@
 ############## PERSES CONFIGURATION ##############
 
-#Project Name.
-project_name: "Perses Test: Covid-Heatmaps"
+  #Project Name.
+  project_name: "Perses Test: Covid-Heatmaps"
 
-#Author: Name of the operator. Used as a prefix to avoid name collision on.
-author: "UNEXUS"
+  #Author: Name of the operator. Used as a prefix to avoid name collision on.
+  author: "UNEXUS"
 
-######### EC2 Configuration #########
+######### Scenario Configuration #########
 
-#Instance AWS type: Only compatible with machines that support kvm virtualization -> https://help.ubuntu.com/community/KVM/Installation.
-instance_type: "c5.metal"
+  #Instance AWS type: Only compatible with machines that support kvm virtualization -> https://help.ubuntu.com/community/KVM/Installation.
+  instance_type: "c5.metal"
 
-#AWS Region.
-region: "eu-west-1"
+  #AWS Region.
+  region: "eu-west-1"
+
+  #AMI ID (Ubuntu Server 18)
+  ami_id: "ami-035966e8adab4aaad"
+
+  #########  Application Id #########
+  #Application Id of Android App (can find it in the 'build.graddle' file of the application).
+  application_id: "com.unexus.covidheatmaps"
 
 
-######### Environment Configuration #########
-  #### Set of devices ####
+######### Set of Devices #########
 
   # Id: Name of set of devices
   # Type: mobile
@@ -27,203 +33,201 @@ region: "eu-west-1"
   # RAM:  maximum amount of memory each device can use
     #(We recommend a minimum of 3g '3GB').
 
-devices:
-  - id: "High-end Device"
-    type: "mobile"
-    devices: 7
-    android_version: 9
-    hardware:
-      cpu: "3"
-      ram: "6g"
+  devices:
+    - id: "High-end Device"
+      type: "mobile"
+      devices: 7
+      android_version: 9
+      hardware:
+        cpu: "3"
+        ram: "6g"
 
 
-#Application Id of Android App (can find it in the 'build.graddle' file of the application).
-application_id: "com.unexus.covidheatmaps"
-
-#Time to wait for the deployment of Android devices (1m '1 minute', 1h '1 hour')
-#For example, for deploy 50 devices, wait 20m '20 minutes'
-time_wait: "3m"
+######### Time Wait #########
+  #Time to wait for the deployment of Android devices (1m '1 minute', 1h '1 hour')
+  #For example, for deploy 50 devices, wait 20m '20 minutes'
+  time_wait: "3m"
 
 
 ######### Tests Definition #########
 
-tests:
-  - id: "Test 1 - 1 Device / 100 locations points"
-    type: "apipecker"
-    config:
-      concurrentUsers: 1
-      iterations: 4
-      delay: 500
-      url: "http://108.129.48.139/register?beginDate=2019-06-10T08:00:28Z&endDate=2019-06-10T10:56:28Z&latitude=37.378833&longitude=-5.970739&radius=600"
-    expect:
-      mean:
-        under: 2000
+  tests:
+    - id: "Test 1 - 1 Device / 100 locations points"
+      type: "apipecker"
+      config:
+        concurrentUsers: 1
+        iterations: 4
+        delay: 500
+        url: "http://108.129.48.139/register?beginDate=2019-06-10T08:00:28Z&endDate=2019-06-10T10:56:28Z&latitude=37.378833&longitude=-5.970739&radius=600"
+      expect:
+        mean:
+          under: 2000
 
-  - id: "Test 2 - 3 Device / 100 locations points"
-    type: "apipecker"
-    config:
-      concurrentUsers: 1
-      iterations: 4
-      delay: 500
-      url: "http://108.129.48.139/register?beginDate=2019-06-10T08:00:28Z&endDate=2019-06-10T14:56:28Z&latitude=37.378833&longitude=-5.970739&radius=600"
-    expect:
-      mean:
-        under: 2000
-
-
-  - id: "Test 3 - 5 Device / 100 locations points"
-    type: "apipecker"
-    config:
-      concurrentUsers: 1
-      iterations: 4
-      delay: 500
-      url: "http://108.129.48.139/register?beginDate=2019-06-10T08:00:28Z&endDate=2019-06-10T16:56:28Z&latitude=37.378833&longitude=-5.970739&radius=600"
-    expect:
-      mean:
-        under: 2000
-
-  - id: "Test 4 - 7 Device / 100 locations points"
-    type: "apipecker"
-    config:
-      concurrentUsers: 1
-      iterations: 4
-      delay: 500
-      url: "http://108.129.48.139/register?beginDate=2019-06-10T08:00:28Z&endDate=2019-06-10T19:56:28Z&latitude=37.378833&longitude=-5.970739&radius=600"
-    expect:
-      mean:
-        under: 2000  
-
-  - id: "Test 5 - 1 Device / 1000 locations points"
-    type: "apipecker"
-    config:
-      concurrentUsers: 1
-      iterations: 4
-      delay: 500
-      url: "http://108.129.48.139/register?beginDate=2019-06-11T08:00:28Z&endDate=2019-06-11T10:56:28Z&latitude=37.378833&longitude=-5.970739&radius=2000"
-    expect:
-      mean:
-        under: 2000
-
-  - id: "Test 6 - 3 Device / 1000 locations points"
-    type: "apipecker"
-    config:
-      concurrentUsers: 1
-      iterations: 4
-      delay: 500
-      url: "http://108.129.48.139/register?beginDate=2019-06-11T08:00:28Z&endDate=2019-06-11T14:56:28Z&latitude=37.378833&longitude=-5.970739&radius=2000"
-    expect:
-      mean:
-        under: 2000
-
-  - id: "Test 7 - 5 Device / 1000 locations points"
-    type: "apipecker"
-    config:
-      concurrentUsers: 1
-      iterations: 4
-      delay: 500
-      url: "http://108.129.48.139/register?beginDate=2019-06-11T08:00:28Z&endDate=2019-06-11T16:56:28Z&latitude=37.378833&longitude=-5.970739&radius=2000"
-    expect:
-      mean:
-        under: 2000
-
-  - id: "Test 8 - 7 Device / 1000 locations points"
-    type: "apipecker"
-    config:
-      concurrentUsers: 1
-      iterations: 4
-      delay: 500
-      url: "http://108.129.48.139/register?beginDate=2019-06-11T08:00:28Z&endDate=2019-06-11T20:56:28Z&latitude=37.378833&longitude=-5.970739&radius=2000"
-    expect:
-      mean:
-        under: 2000
+    - id: "Test 2 - 3 Device / 100 locations points"
+      type: "apipecker"
+      config:
+        concurrentUsers: 1
+        iterations: 4
+        delay: 500
+        url: "http://108.129.48.139/register?beginDate=2019-06-10T08:00:28Z&endDate=2019-06-10T14:56:28Z&latitude=37.378833&longitude=-5.970739&radius=600"
+      expect:
+        mean:
+          under: 2000
 
 
-  - id: "Test 9 - 1 Device / 5000 locations points"
-    type: "apipecker"
-    config:
-      concurrentUsers: 1
-      iterations: 4
-      delay: 500
-      url: "http://108.129.48.139/register?beginDate=2019-06-12T08:00:28Z&endDate=2019-06-15T10:10:28Z&latitude=37.378833&longitude=-5.970739&radius=3000"
-    expect:
-      mean:
-        under: 2000
+    - id: "Test 3 - 5 Device / 100 locations points"
+      type: "apipecker"
+      config:
+        concurrentUsers: 1
+        iterations: 4
+        delay: 500
+        url: "http://108.129.48.139/register?beginDate=2019-06-10T08:00:28Z&endDate=2019-06-10T16:56:28Z&latitude=37.378833&longitude=-5.970739&radius=600"
+      expect:
+        mean:
+          under: 2000
 
-  - id: "Test 10 - 3 Device / 5000 locations points"
-    type: "apipecker"
-    config:
-      concurrentUsers: 1
-      iterations: 4
-      delay: 500
-      url: "http://108.129.48.139/register?beginDate=2019-06-12T08:00:28Z&endDate=2019-06-15T14:10:28Z&latitude=37.378833&longitude=-5.970739&radius=3000"
-    expect:
-      mean:
-        under: 2000
+    - id: "Test 4 - 7 Device / 100 locations points"
+      type: "apipecker"
+      config:
+        concurrentUsers: 1
+        iterations: 4
+        delay: 500
+        url: "http://108.129.48.139/register?beginDate=2019-06-10T08:00:28Z&endDate=2019-06-10T19:56:28Z&latitude=37.378833&longitude=-5.970739&radius=600"
+      expect:
+        mean:
+          under: 2000  
+
+    - id: "Test 5 - 1 Device / 1000 locations points"
+      type: "apipecker"
+      config:
+        concurrentUsers: 1
+        iterations: 4
+        delay: 500
+        url: "http://108.129.48.139/register?beginDate=2019-06-11T08:00:28Z&endDate=2019-06-11T10:56:28Z&latitude=37.378833&longitude=-5.970739&radius=2000"
+      expect:
+        mean:
+          under: 2000
+
+    - id: "Test 6 - 3 Device / 1000 locations points"
+      type: "apipecker"
+      config:
+        concurrentUsers: 1
+        iterations: 4
+        delay: 500
+        url: "http://108.129.48.139/register?beginDate=2019-06-11T08:00:28Z&endDate=2019-06-11T14:56:28Z&latitude=37.378833&longitude=-5.970739&radius=2000"
+      expect:
+        mean:
+          under: 2000
+
+    - id: "Test 7 - 5 Device / 1000 locations points"
+      type: "apipecker"
+      config:
+        concurrentUsers: 1
+        iterations: 4
+        delay: 500
+        url: "http://108.129.48.139/register?beginDate=2019-06-11T08:00:28Z&endDate=2019-06-11T16:56:28Z&latitude=37.378833&longitude=-5.970739&radius=2000"
+      expect:
+        mean:
+          under: 2000
+
+    - id: "Test 8 - 7 Device / 1000 locations points"
+      type: "apipecker"
+      config:
+        concurrentUsers: 1
+        iterations: 4
+        delay: 500
+        url: "http://108.129.48.139/register?beginDate=2019-06-11T08:00:28Z&endDate=2019-06-11T20:56:28Z&latitude=37.378833&longitude=-5.970739&radius=2000"
+      expect:
+        mean:
+          under: 2000
 
 
-  - id: "Test 11 - 5 Device / 5000 locations points"
-    type: "apipecker"
-    config:
-      concurrentUsers: 1
-      iterations: 4
-      delay: 500
-      url: "http://108.129.48.139/register?beginDate=2019-06-12T08:00:28Z&endDate=2019-06-15T16:10:28Z&latitude=37.378833&longitude=-5.970739&radius=3000"
-    expect:
-      mean:
-        under: 2000
+    - id: "Test 9 - 1 Device / 5000 locations points"
+      type: "apipecker"
+      config:
+        concurrentUsers: 1
+        iterations: 4
+        delay: 500
+        url: "http://108.129.48.139/register?beginDate=2019-06-12T08:00:28Z&endDate=2019-06-15T10:10:28Z&latitude=37.378833&longitude=-5.970739&radius=3000"
+      expect:
+        mean:
+          under: 2000
 
-  - id: "Test 12 - 7 Device / 5000 locations points"
-    type: "apipecker"
-    config:
-      concurrentUsers: 1
-      iterations: 4
-      delay: 500
-      url: "http://108.129.48.139/register?beginDate=2019-06-12T08:00:28Z&endDate=2019-06-15T20:10:28Z&latitude=37.378833&longitude=-5.970739&radius=3000"
-    expect:
-      mean:
-        under: 2000
+    - id: "Test 10 - 3 Device / 5000 locations points"
+      type: "apipecker"
+      config:
+        concurrentUsers: 1
+        iterations: 4
+        delay: 500
+        url: "http://108.129.48.139/register?beginDate=2019-06-12T08:00:28Z&endDate=2019-06-15T14:10:28Z&latitude=37.378833&longitude=-5.970739&radius=3000"
+      expect:
+        mean:
+          under: 2000
 
-  - id: "Test 13 - 1 Device / 10000 locations points"
-    type: "apipecker"
-    config:
-      concurrentUsers: 1
-      iterations: 4
-      delay: 500
-      url: "http://108.129.48.139/register?beginDate=2019-06-16T08:00:28Z&endDate=2019-06-19T10:56:28Z&latitude=37.378833&longitude=-5.970739&radius=3000"
-    expect:
-      mean:
-        under: 2000
 
-  - id: "Test 14 - 3 Device / 10000 locations points"
-    type: "apipecker"
-    config:
-      concurrentUsers: 1
-      iterations: 4
-      delay: 500
-      url: "http://108.129.48.139/register?beginDate=2019-06-16T08:00:28Z&endDate=2019-06-19T12:56:28Z&latitude=37.378833&longitude=-5.970739&radius=3000"
-    expect:
-      mean:
-        under: 2000
+    - id: "Test 11 - 5 Device / 5000 locations points"
+      type: "apipecker"
+      config:
+        concurrentUsers: 1
+        iterations: 4
+        delay: 500
+        url: "http://108.129.48.139/register?beginDate=2019-06-12T08:00:28Z&endDate=2019-06-15T16:10:28Z&latitude=37.378833&longitude=-5.970739&radius=3000"
+      expect:
+        mean:
+          under: 2000
 
-  - id: "Test 15 - 5 Device / 10000 locations points"
-    type: "apipecker"
-    config:
-      concurrentUsers: 1
-      iterations: 4
-      delay: 500
-      url: "http://108.129.48.139/register?beginDate=2019-06-16T08:00:28Z&endDate=2019-06-19T16:56:28Z&latitude=37.378833&longitude=-5.970739&radius=3000"
-    expect:
-      mean:
-        under: 2000
+    - id: "Test 12 - 7 Device / 5000 locations points"
+      type: "apipecker"
+      config:
+        concurrentUsers: 1
+        iterations: 4
+        delay: 500
+        url: "http://108.129.48.139/register?beginDate=2019-06-12T08:00:28Z&endDate=2019-06-15T20:10:28Z&latitude=37.378833&longitude=-5.970739&radius=3000"
+      expect:
+        mean:
+          under: 2000
 
-  - id: "Test 16 - 7 Device / 10000 locations points"
-    type: "apipecker"
-    config:
-      concurrentUsers: 1
-      iterations: 4
-      delay: 500
-      url: "http://108.129.48.139/register?beginDate=2019-06-16T08:00:28Z&endDate=2019-06-19T20:56:28Z&latitude=37.378833&longitude=-5.970739&radius=3000"
-    expect:
-      mean:
-        under: 2000
+    - id: "Test 13 - 1 Device / 10000 locations points"
+      type: "apipecker"
+      config:
+        concurrentUsers: 1
+        iterations: 4
+        delay: 500
+        url: "http://108.129.48.139/register?beginDate=2019-06-16T08:00:28Z&endDate=2019-06-19T10:56:28Z&latitude=37.378833&longitude=-5.970739&radius=3000"
+      expect:
+        mean:
+          under: 2000
+
+    - id: "Test 14 - 3 Device / 10000 locations points"
+      type: "apipecker"
+      config:
+        concurrentUsers: 1
+        iterations: 4
+        delay: 500
+        url: "http://108.129.48.139/register?beginDate=2019-06-16T08:00:28Z&endDate=2019-06-19T12:56:28Z&latitude=37.378833&longitude=-5.970739&radius=3000"
+      expect:
+        mean:
+          under: 2000
+
+    - id: "Test 15 - 5 Device / 10000 locations points"
+      type: "apipecker"
+      config:
+        concurrentUsers: 1
+        iterations: 4
+        delay: 500
+        url: "http://108.129.48.139/register?beginDate=2019-06-16T08:00:28Z&endDate=2019-06-19T16:56:28Z&latitude=37.378833&longitude=-5.970739&radius=3000"
+      expect:
+        mean:
+          under: 2000
+
+    - id: "Test 16 - 7 Device / 10000 locations points"
+      type: "apipecker"
+      config:
+        concurrentUsers: 1
+        iterations: 4
+        delay: 500
+        url: "http://108.129.48.139/register?beginDate=2019-06-16T08:00:28Z&endDate=2019-06-19T20:56:28Z&latitude=37.378833&longitude=-5.970739&radius=3000"
+      expect:
+        mean:
+          under: 2000
 
