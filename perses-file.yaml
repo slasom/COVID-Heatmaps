@@ -47,6 +47,12 @@
   #Time to wait for the deployment of Android devices (1m '1 minute', 1h '1 hour')
   #For example, for deploy 50 devices, wait 20m '20 minutes'
   time_wait: "3m"
+  
+######### NetworkConfig #########
+#To emulate the communication networks of mobile devices, it is necessary to include additional latency to emulate real mobile communications. \textit{Latency}, this property indicates the additional latency between the virtual mobile devices and the cloud node (1s '1 second', 100ms '100 milliseconds'). 
+#Example: 200 milliseconds to emulate WIFI communication.
+
+  latency: "200ms"
 
 
 ######### Tests Definition #########
