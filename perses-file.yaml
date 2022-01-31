@@ -50,7 +50,6 @@
   
 ######### NetworkConfig #########
 #To emulate the communication networks of mobile devices, it is necessary to include additional latency to emulate real mobile communications. \textit{Latency}, this property indicates the additional latency between the virtual mobile devices and the cloud node (1s '1 second', 100ms '100 milliseconds'). 
-#Example: 200 milliseconds to emulate WIFI communication.
 
   latency: "200ms"
 
