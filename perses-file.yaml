@@ -39,8 +39,8 @@
       devices: 7
       android_version: 9
       hardware:
-        cpu: "3"
-        ram: "6g"
+        cpu: "1.5"
+        ram: "3g"
 
 
 ######### Time Wait #########
